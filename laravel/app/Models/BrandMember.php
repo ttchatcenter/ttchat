@@ -18,14 +18,17 @@ class BrandMember extends Model
         'platform_2',
         'platform_3',
         'platform_4',
+        'platform_5',
         'concurrent_1',
         'concurrent_2',
         'concurrent_3',
         'concurrent_4',
+        'concurrent_5',
         'current_ticket_1',
         'current_ticket_2',
         'current_ticket_3',
         'current_ticket_4',
+        'current_ticket_5',
         'latest_assigned',
     ];
 

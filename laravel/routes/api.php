@@ -21,7 +21,8 @@ use App\Http\Controllers\SubcategoryLevel1Controller;
 use App\Http\Controllers\SubcategoryLevel2Controller;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RejectController;
-
+use App\Http\Controllers\TwitterController;
+use App\Http\Controllers\TwitterMassageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -138,6 +139,13 @@ Route::middleware(['auth:api', 'update.user'])->group(function () {
     Route::get('report/member-with-time-in-status', [ReportController::class, 'memberWithTimeInStatus']);
     Route::get('report/time-in-status', [ReportController::class, 'userTimeInStatus']);
     Route::get('report/dashboard-overall-performance', [ReportController::class, 'dashboardOverallPerformance']);
+
+    Route::get('/twitter/search', [TwitterController::class, 'search']);
+    Route::get('/twitter/send-message', [TwitterMassageController::class, 'getTwitterDMEvents']);
+    Route::get('/twitter/dms', [TwitterMassageController::class, 'getDms'])->name('twitter.dms');
+    Route::post('/twitter/reply-to-tweet', [TwitterController::class, 'sendReplyToTweet']);
+    Route::get('/twitter/gettoken', [TwitterController::class, 'getToken']);
+  
 });
 
 require __DIR__ . '/test.php';

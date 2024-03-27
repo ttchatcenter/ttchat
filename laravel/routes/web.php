@@ -1,7 +1,7 @@
 <?php
-
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LoginTwitterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,3 +17,7 @@ Route::get('/', function () {
     // return view('welcome');
     return response()->json(['url' => URL::current()], 200);
 });
+Route::get('twitter/auth', [LoginTwitterController::class, 'getAuthorizationCode'])->name('twitter.auth');
+Route::get('twitter/callback', [LoginTwitterController::class, 'handleCallback'])->name('twitter.callback');
+
+

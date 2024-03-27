@@ -4,6 +4,7 @@ import Messenger from './messenger/layout'
 import Line from './line/layout'
 import Facebook from './facebook/layout'
 import Pantip from './pantip/layout'
+import Twitter from './twitter/layout'
 import useBrand from "@/hooks/common/useBrand"
 import useListChat from "@/hooks/chat/useListChat"
 
@@ -13,7 +14,7 @@ const ChatPage = () => {
   const [filter, setFilter] = useState({
     keyword: '',
     status: ['new', 'assigned', 'replied'],
-    source: ['facebook', 'messenger', 'line', 'pantip'],
+    source: ['facebook', 'messenger', 'line', 'pantip','twitter'],
     platform_id: [],
     assignee: [],
   })
@@ -35,7 +36,10 @@ const ChatPage = () => {
       return <Facebook data={data} setSelected={setSelected} />
     } else if (selected.source === 'pantip') {
       return <Pantip data={data} setSelected={setSelected} />
+    } else if (selected.source === 'twitter') {
+      return <Twitter data={data} setSelected={setSelected} />
     }
+    
     return undefined
   }
 

@@ -15,6 +15,7 @@ const PLATFORM = {
   facebook: '/images/fb-icon.png',
   messenger: '/images/messenger-icon.png',
   line: '/images/line-icon.png',
+  twitter: '/images/twitter-icon.png',
 }
 
 const PlatformSettingPage = () => {

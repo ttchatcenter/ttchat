@@ -14,6 +14,7 @@ const PLATFORM = {
   messenger: '/images/messenger-icon.png',
   line: '/images/line-icon.png',
   pantip: '/images/pantip-icon.png',
+  twitter: '/images/twitter-icon.png',
 }
 
 const PROFILE = {
@@ -21,6 +22,7 @@ const PROFILE = {
   messenger: 'https://images.summitmedia-digital.com/cosmo/images/2020/08/26/julia-barretto-profile-picture-idea-1598430021.jpg',
   line: 'https://i.pinimg.com/474x/98/51/1e/98511ee98a1930b8938e42caf0904d2d.jpg',
   pantip: '/images/pantip-icon.png',
+  twitter: '/images/twitter-icon.png',
 }
 
 const renderTime = (time) => {
@@ -110,6 +112,25 @@ const ChatListItem = (props) => {
                   <Tag text="new" customClasses="typo-c3 px-2" />
                 </div>
                 <span className="typo-th-c3 text-main-grey4">โพสต์เมื่อ {dayjs(data?.latest_message_time).fromNow()}</span>
+              </div>
+            </div>
+          ) : undefined
+        }
+        {
+          type === 'twitter' ? (
+            <div className="flex flex-col gap-2 flex-1">
+              <div className="flex flex-col w-full gap-[4px]">
+                <div className="flex items-center gap-2">
+                  <span className="typo-th-b2 line-clamp-1 break-all">{data?.customer_name}</span>
+                  <Tag text={data?.status} customClasses="typo-c3 px-2" />
+                </div>
+                {/* condition render time */}
+                <span className="typo-th-c3 text-main-grey4">โพสต์เมื่อ {dayjs(data?.latest_message_time).fromNow()}</span>
+              </div>
+              <div className="flex items-center justify-between w-full gap-8">
+                <p className="flex-1 line-clamp-1 typo-th-c3 text-accent-grey">
+                  {data?.latest_message}
+                </p>
               </div>
             </div>
           ) : undefined

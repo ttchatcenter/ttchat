@@ -89,6 +89,7 @@ const ChatList = (props) => {
         <Checkbox onChange={handleChecked('source', 'messenger')} checked={filter.source.find(i => i === 'messenger')}>Messenger</Checkbox>
         <Checkbox onChange={handleChecked('source', 'line')} checked={filter.source.find(i => i === 'line')}>Line</Checkbox>
         <Checkbox onChange={handleChecked('source', 'pantip')} checked={filter.source.find(i => i === 'pantip')}>Pantip</Checkbox>
+        <Checkbox onChange={handleChecked('source', 'twitter')} checked={filter.source.find(i => i === 'twitter')}>twitter</Checkbox>
       </div>
       <div className='text-accent-grey'>Channel</div>
       <div className='flex flex-col gap-2 [&_*]:typo-th-c3 [&_*]:text-accent-grey'>

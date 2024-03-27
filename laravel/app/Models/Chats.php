@@ -51,4 +51,8 @@ class Chats extends Model
     {
         return $this->belongsTo(FacebookPosts::class, 'id', 'chat_id');
     }
+    public function twPost()
+    {
+        return $this->belongsTo(TwitterPosts::class, 'id', 'chat_id');
+    }
 }

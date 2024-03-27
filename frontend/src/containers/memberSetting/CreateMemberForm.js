@@ -54,6 +54,7 @@ const CreateMemberForm = (props) => {
     { value: 'messenger', label: 'Messenger' },
     { value: 'line', label: 'Line OA' },
     { value: 'pantip', label: 'Pantip' },
+    { value: 'twitter', label: 'Twitter' },
     { value: 'none', label: 'None' },
   ].filter(i => !filterSource.includes(i.value))
 
@@ -76,10 +77,12 @@ const CreateMemberForm = (props) => {
         platform_2: 'messenger',
         platform_3: 'line',
         platform_4: 'pantip',
+        platform_5: 'twitter',
         concurrent_1: 0,
         concurrent_2: 0,
         concurrent_3: 0,
         concurrent_4: 0,
+        concurrent_5: 0,
       }}
     >
       <div className="pb-4">General Info</div>
@@ -168,6 +171,7 @@ const CreateMemberForm = (props) => {
               { value: 'messenger', label: 'Messenger' },
               { value: 'line', label: 'Line OA' },
               { value: 'pantip', label: 'Pantip' },
+              { value: 'twitter', label: 'Twitter' },
               { value: 'none', label: 'None' },
             ].filter(i => !filterSource.includes(i.value))}
           />
@@ -235,6 +239,26 @@ const CreateMemberForm = (props) => {
         <Form.Item
           label="Concurrent"
           name="concurrent_4"
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </div>
+      <div className="grid grid-cols-[303fr_185fr] gap-4">
+        <Form.Item
+          label="Platform 5"
+          name="platform_5"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Select
+            options={options}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Concurrent"
+          name="concurrent_5"
           labelCol={{ span: 12 }}
           wrapperCol={{ span: 12 }}
         >

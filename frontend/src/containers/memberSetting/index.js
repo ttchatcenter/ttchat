@@ -15,6 +15,7 @@ const PLATFORM = {
   messenger: 'Messenger',
   line: 'Line OA',
   pantip: 'Pantip',
+  twitter: 'Twitter',
   none: 'None',
 }
 
@@ -100,6 +101,7 @@ const MemberSettingPage = () => {
           record?.concurrent_2,
           record?.concurrent_3,
           record?.concurrent_4,
+          record?.concurrent_5,
         ].reduce((acc, cur) => acc + cur, 0)
         return limit
       }

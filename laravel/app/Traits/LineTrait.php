@@ -3,8 +3,8 @@
 namespace App\Traits;
 
 use GuzzleHttp\Client;
-use Log;
-
+//use Log;
+use Illuminate\Support\Facades\Log;
 trait LineTrait
 {
 
