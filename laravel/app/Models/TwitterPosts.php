@@ -19,7 +19,10 @@ class TwitterPosts extends Model
         'conversation_id',
         'in_reply_to_user_id',
         'chat_id',
+<<<<<<< HEAD
         'brand_id',
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         // เพิ่มฟิลด์อื่นๆ ที่ต้องการเก็บลงในฐานข้อมูลได้ตามต้องการ
     ];
 

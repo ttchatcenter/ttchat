@@ -54,9 +54,13 @@ const CreateMemberForm = (props) => {
     { value: 'messenger', label: 'Messenger' },
     { value: 'line', label: 'Line OA' },
     { value: 'pantip', label: 'Pantip' },
+<<<<<<< HEAD
     { value: 'inbox', label: 'Pantip Inbox' },
     { value: 'twitter', label: 'Twitter' },
     { value: 'dm', label: 'Twitter Dm' },
+=======
+    { value: 'twitter', label: 'Twitter' },
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
     { value: 'none', label: 'None' },
   ].filter(i => !filterSource.includes(i.value))
 
@@ -79,16 +83,23 @@ const CreateMemberForm = (props) => {
         platform_2: 'messenger',
         platform_3: 'line',
         platform_4: 'pantip',
+<<<<<<< HEAD
         platform_5: 'inbox',
         platform_6: 'twitter',
         platform_7: 'dm',
+=======
+        platform_5: 'twitter',
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         concurrent_1: 0,
         concurrent_2: 0,
         concurrent_3: 0,
         concurrent_4: 0,
         concurrent_5: 0,
+<<<<<<< HEAD
         concurrent_6: 0,
         concurrent_7: 0,
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
       }}
     >
       <div className="pb-4">General Info</div>
@@ -177,9 +188,13 @@ const CreateMemberForm = (props) => {
               { value: 'messenger', label: 'Messenger' },
               { value: 'line', label: 'Line OA' },
               { value: 'pantip', label: 'Pantip' },
+<<<<<<< HEAD
               { value: 'inbox', label: 'Pantip Inbox' },
               { value: 'twitter', label: 'Twitter' },
               { value: 'dm', label: 'Twitter Dm' },
+=======
+              { value: 'twitter', label: 'Twitter' },
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
               { value: 'none', label: 'None' },
             ].filter(i => !filterSource.includes(i.value))}
           />
@@ -273,6 +288,7 @@ const CreateMemberForm = (props) => {
           <Input type="number" />
         </Form.Item>
       </div>
+<<<<<<< HEAD
       <div className="grid grid-cols-[303fr_185fr] gap-4">
         <Form.Item
           label="Platform 6"
@@ -313,6 +329,8 @@ const CreateMemberForm = (props) => {
           <Input type="number" />
         </Form.Item>
       </div>
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
       <Form.Item wrapperCol={{ span: 24 }} className="!mb-0">
         <div className='flex justify-center gap-4'>
           <Button

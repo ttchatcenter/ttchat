@@ -15,6 +15,7 @@ class ChatConstant extends Model
         'channel_name',
         'value',
         'value2',
+<<<<<<< HEAD
         'tw_userid',
         'twitter_bearer_token',
         'twitter_client_id',
@@ -23,6 +24,8 @@ class ChatConstant extends Model
         'twitter_access_token_secret',
         'twitter_redirect_url',
         'twitter_code_challenge',
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         // เพิ่มฟิลด์อื่นๆ ที่ต้องการเก็บลงในฐานข้อมูลได้ตามต้องการ
     ];
 

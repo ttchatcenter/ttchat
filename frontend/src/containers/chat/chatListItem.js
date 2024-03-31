@@ -13,20 +13,30 @@ const PLATFORM = {
   facebook: '/images/fb-icon.png',
   messenger: '/images/messenger-icon.png',
   line: '/images/line-icon.png',
+<<<<<<< HEAD
   pantip:'pantip-icon.png',
   inbox:'pantip-inbox-icon.png',
   twitter: '/images/x-icon.png',
   dm: '/images/dm-icon.png',
+=======
+  pantip: '/images/pantip-icon.png',
+  twitter: '/images/twitter-icon.png',
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
 }
 
 const PROFILE = {
   facebook: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg',
   messenger: 'https://images.summitmedia-digital.com/cosmo/images/2020/08/26/julia-barretto-profile-picture-idea-1598430021.jpg',
   line: 'https://i.pinimg.com/474x/98/51/1e/98511ee98a1930b8938e42caf0904d2d.jpg',
+<<<<<<< HEAD
   pantip:'pantip-icon.png',
   inbox:'pantip-inbox-icon.png',
   twitter: '/images/x-icon.png',
   dm: '/images/dm-icon.png',
+=======
+  pantip: '/images/pantip-icon.png',
+  twitter: '/images/twitter-icon.png',
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
 }
 
 const renderTime = (time) => {

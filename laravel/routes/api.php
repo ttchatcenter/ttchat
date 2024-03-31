@@ -146,7 +146,10 @@ Route::middleware(['auth:api', 'update.user'])->group(function () {
     Route::get('/twitter/dms', [TwitterMassageController::class, 'getDms'])->name('twitter.dms');
     Route::post('/twitter/reply-to-tweet', [TwitterController::class, 'sendReplyToTweet']);
     Route::get('/twitter/gettoken', [TwitterController::class, 'getToken']);
+<<<<<<< HEAD
     Route::get('/twitter/commenttw', [TwitterController::class, 'getComTw']);
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
   
 });
 

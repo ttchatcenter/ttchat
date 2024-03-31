@@ -1,28 +1,44 @@
 <?php
 
 namespace App\Traits;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use SmolBlog\OAuth2\Client\Provider\Twitter;
 use SmolBlog\OAuth2\Client\Token\AccessToken;
 use App\Models\ChatConstant;
+<<<<<<< HEAD
 use App\Models\TwitterPosts;
 use Carbon\Carbon;
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
 trait TwitterTrait
 {
     ///////////////////////////// คนหาคนที่กล่าวถึง ////////////////////////////////////////////////////  
     public function searchTweets($query,$tweetFields,$max_results,$start_time,$end_time,$media,$userfile,$brandId, $platformId)
     {
+<<<<<<< HEAD
         $carbonDateTime = Carbon::parse($start_time)->subHours(7)->toIso8601String();
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         $client = new Client();
         $url = 'https://api.twitter.com/2/tweets/search/recent';
         try {
            // $twitterBearerToken = ChatConstant::where('code', 1)->value('value');
+<<<<<<< HEAD
            $dataconstant = ChatConstant::where('brand_id', $brandId)->first();
             $response = $client->request('GET', $url, [
                 'headers' => [
                    // 'Authorization' => 'Bearer ' .env('TWITTER_BEARER_TOKEN')// $twitterBearerToken//env('TWITTER_BEARER_TOKEN'),
                    'Authorization' => 'Bearer ' .$dataconstant->twitter_bearer_token
+=======
+            $response = $client->request('GET', $url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' .env('TWITTER_BEARER_TOKEN')// $twitterBearerToken//env('TWITTER_BEARER_TOKEN'),
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                 ],
                 'query' => [
                     'query' => $query,
@@ -30,11 +46,16 @@ trait TwitterTrait
                     //'max_results' => $max_results,
                     'media.fields' => $media,
                     'user.fields' => $userfile,
+<<<<<<< HEAD
                     'start_time' => $carbonDateTime,
+=======
+                    'start_time' => $start_time,
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                     'expansions' => 'author_id,entities.mentions.username,in_reply_to_user_id,referenced_tweets.id.author_id,geo.place_id,edit_history_tweet_ids,attachments.media_keys', 
                 ],
             ]);
             $responseData = json_decode($response->getBody()->getContents(), true);
+<<<<<<< HEAD
            
             $users = $responseData['includes']['users'];
             //$attachments = $responseData['attachments']['media_keys'][0];
@@ -107,10 +128,28 @@ trait TwitterTrait
                                 'created_at' => $reply['created_at'],
                                 'media' => $replymedias ,
                             ];
+=======
+            $users = $responseData['includes']['users'];
+           // return $user ;
+            foreach ($responseData['data'] as $post) {
+                // ตรวจสอบว่าโพสต์นี้เป็นการตอบกลับหรือไม่
+                if (isset($post['referenced_tweets'][0]['type']) && $post['referenced_tweets'][0]['type'] === 'replied_to') {
+                    // หากเป็นการตอบกลับ ให้เพิ่มข้อมูลของการตอบกลับไปยังโพสต์เดียวกัน
+                    $userprofile = $this->getUserProfile($post['author_id'], $users);
+                    $post['userprofile_replay'] = $userprofile;
+                    $post['brandId']=$brandId;
+                    $post['platformId']=$platformId;
+                    $parentPostId = $post['referenced_tweets'][0]['id'];
+                    foreach ($responseData['includes']['tweets'] as $reply) {
+                        if ($reply['id'] === $parentPostId) {
+                            $reply['userprofile_post'] = $this->getUserProfile($reply['author_id'], $users);
+                            $post['at_post'] = $reply;
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                             break;
                         }
                     }
                 } else {
+<<<<<<< HEAD
                     $post['at_post'] = null;
                 }
     
@@ -119,6 +158,16 @@ trait TwitterTrait
 
 
 
+=======
+                    // หากไม่ใช่การตอบกลับ ให้กำหนดค่าของการตอบกลับเป็น null
+                    $post['reply'] = null;
+                }
+                // เพิ่มโพสต์ที่ถูกจัดรูปแบบใหม่ลงใน formattedData
+              if ($post['referenced_tweets'][0]['type'] === 'replied_to') {
+                $formattedData[] = $post;
+              }
+            }
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
             usort($formattedData, function($a, $b) {
                 return strtotime($a['created_at']) - strtotime($b['created_at']);
             });
@@ -139,6 +188,7 @@ trait TwitterTrait
         }
         return null;
     }
+<<<<<<< HEAD
     public function getattachments($id, $json)
     {
         foreach ($json as $achments) {
@@ -153,6 +203,12 @@ trait TwitterTrait
     public function replyToTweet($tweetId, $text,$twitterBearerToken)
     {
        ////$twitterBearerToken = ChatConstant::where('code', 1)->value('value');
+=======
+    ///////////////////////////////////////// reply comment //////////////////////////////////////
+    public function replyToTweet($tweetId, $text)
+    {
+        $twitterBearerToken = ChatConstant::where('code', 1)->value('value');
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         $client = new Client([
             'headers' => [
                 'Authorization' => 'Bearer ' . $twitterBearerToken,
@@ -171,6 +227,7 @@ trait TwitterTrait
         return $response->getBody()->getContents();
     }
 
+<<<<<<< HEAD
     public function replyToTweetMulti($tweetId, $text,$media,$twitterBearerToken)
     {
         $client = new Client([
@@ -232,11 +289,38 @@ trait TwitterTrait
                     'media.fields' => 'duration_ms,height,media_key,preview_image_url,type,url,width,public_metrics,non_public_metrics,organic_metrics,promoted_metrics,alt_text,variants',
                     'user.fields' => 'created_at,description,entities,id,location,most_recent_tweet_id,name,pinned_tweet_id,profile_image_url,protected,url,username,verified,verified_type,withheld',
                     //'start_time' => $start_time,
+=======
+    public function getComment_tw($id)
+    {
+      
+        $client = new Client();
+        $url = 'https://api.twitter.com/2/tweets/search/recent';
+        try {
+         
+            // $twitterBearerToken = ChatConstant::where('code', 1)->value('value');
+           //https://api.twitter.com/2/tweets/search/recent?tweet.fields=
+          // &expansions=author_id,entities.mentions.username,in_reply_to_user_id,referenced_tweets.id.author_id,geo.place_id,edit_history_tweet_ids,attachments.media_keys
+           //&query=conversation_id:1770720599855317441
+           //&media.fields=
+
+           $response = $client->request('GET', $url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' .env('TWITTER_BEARER_TOKEN')// $twitterBearerToken//env('TWITTER_BEARER_TOKEN'),
+                ],
+                'query' => [
+                    'query' => 'conversation_id:'.$id,
+                    'tweet.fields' => 'id,text,author_id,created_at,reply_settings,source,withheld,context_annotations,conversation_id,attachments,edit_controls,geo,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets',
+                    //'max_results' => $max_results,
+                    'media.fields' => 'duration_ms,height,media_key,preview_image_url,type,url,width,public_metrics,non_public_metrics,organic_metrics,promoted_metrics,alt_text,variants',
+                    'user.fields' => $userfile,
+                    'start_time' => $start_time,
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                     'expansions' => 'author_id,entities.mentions.username,in_reply_to_user_id,referenced_tweets.id.author_id,geo.place_id,edit_history_tweet_ids,attachments.media_keys', 
                 ],
             ]);
             $responseData = json_decode($response->getBody()->getContents(), true);
             $users = $responseData['includes']['users'];
+<<<<<<< HEAD
             //return $responseData;
             if (isset($responseData['includes']['media'])){
                 $attachments = $responseData['includes']['media'];
@@ -290,10 +374,27 @@ trait TwitterTrait
                                 'created_at' => $reply['created_at'],
                                 'media' => $replymedias,
                             ];
+=======
+           // return $user ;
+            foreach ($responseData['data'] as $post) {
+                // ตรวจสอบว่าโพสต์นี้เป็นการตอบกลับหรือไม่
+                if (isset($post['referenced_tweets'][0]['type']) && $post['referenced_tweets'][0]['type'] === 'replied_to') {
+                    // หากเป็นการตอบกลับ ให้เพิ่มข้อมูลของการตอบกลับไปยังโพสต์เดียวกัน
+                    $userprofile = $this->getUserProfile($post['author_id'], $users);
+                    $post['userprofile_replay'] = $userprofile;
+                    $post['brandId']=$brandId;
+                    $post['platformId']=$platformId;
+                    $parentPostId = $post['referenced_tweets'][0]['id'];
+                    foreach ($responseData['includes']['tweets'] as $reply) {
+                        if ($reply['id'] === $parentPostId) {
+                            $reply['userprofile_post'] = $this->getUserProfile($reply['author_id'], $users);
+                            $post['at_post'] = $reply;
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                             break;
                         }
                     }
                 } else {
+<<<<<<< HEAD
                     $post['at_post'] = null;
                 }
     
@@ -335,10 +436,37 @@ trait TwitterTrait
                 return strtotime($a['created_at']) - strtotime($b['created_at']);
             });
             return $redatacomment;
+=======
+                    // หากไม่ใช่การตอบกลับ ให้กำหนดค่าของการตอบกลับเป็น null
+                    $post['reply'] = null;
+                }
+                // เพิ่มโพสต์ที่ถูกจัดรูปแบบใหม่ลงใน formattedData
+              if ($post['referenced_tweets'][0]['type'] === 'replied_to') {
+                $formattedData[] = $post;
+              }
+            }
+            usort($formattedData, function($a, $b) {
+                return strtotime($a['created_at']) - strtotime($b['created_at']);
+            });
+
+            return $formattedData;
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         } catch (\Exception $e) {
             Log::error('Error searching tweets: ' . $e->getMessage());
             return null;
         }
+<<<<<<< HEAD
+=======
+        // $method = 'GET';
+        // $url = env('FACEBOOK_API_URL', 'https://graph.facebook.com/v14.0');
+        // $path = '/' . $id . '/comments?fields=id,message,attachment,created_time,from,comments,parent{id,message,attachment,created_time,from,comments,is_hidden},is_hidden&access_token=' . $token;
+
+        // $url1 = $url . $path;
+        // $client = new Client();
+        // $response1 = $client->request($method, $url1);
+        // $res1 = json_decode($response1->getBody(), true);
+        // return $res1;
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
     }
 
     /////////////////////////////////////////////get now token /////////////////////////////   
@@ -348,12 +476,15 @@ trait TwitterTrait
         $client_id = env('TWITTER_CLIENT_ID');
         $client_secret = env('TWITTER_CLIENT_SECRET');
         $str = (pack('H*', hash("sha256", env('TWITTER_CODE_CHALLENGE'))));
+<<<<<<< HEAD
         // $dataconstant = ChatConstant::where('brand_id', $brand_id)->first();
         // $callback_uri =  $dataconstant->twitter_redirect_url;
         // $client_id =  $dataconstant->twitter_client_id;
         // $client_secret = $dataconstant->twitter_client_secret;
         // $str = (pack('H*', hash("sha256", $dataconstant->twitter_code_challenge)));
 
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         $code_verifier = rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
         $authorization = base64_encode("$client_id:$client_secret");
         $header = array("Authorization: Basic {$authorization}","Content-Type: application/x-www-form-urlencoded");
@@ -416,6 +547,7 @@ trait TwitterTrait
         }
     }
 
+<<<<<<< HEAD
     public function getReTwitterToken($client_id,$client_secret,$TwitterRefreshToken)
     {
        
@@ -461,6 +593,8 @@ trait TwitterTrait
 
 
 
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
 }
 
 

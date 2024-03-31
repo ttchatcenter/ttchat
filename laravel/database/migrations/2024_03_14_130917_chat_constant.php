@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('channel_name');
             $table->string('value');
             $table->string('value2');
+<<<<<<< HEAD
             $table->string('tw_userid');
             $table->string('twitter_bearer_token');
             $table->string('twitter_client_id');
@@ -26,6 +27,8 @@ return new class extends Migration
             $table->string('twitter_access_token_secret');
             $table->string('twitter_redirect_url');
             $table->string('twitter_code_challenge');
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
             $table->timestamps(); 
         });
     }

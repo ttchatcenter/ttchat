@@ -7,7 +7,11 @@ export default function useGetMessengerChat(data) {
   const [list, setList] = useState([])
   const [prev, setPrev] = useState()
   const { platform } = useGetPlatform(data?.platform_id)
+<<<<<<< HEAD
   //alert(data?.platform_id)
+=======
+  alert(data?.platform_id)
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
   const fetchChat = (callback) => {
     window.FB.api(
       `${platform.platform_id}/conversations?user_id=${data?.customer_id}&fields=senders,messages.limit(25){message,from,created_time,sticker,attachments{image_data,video_data,file_url,name}}&limit=1`,

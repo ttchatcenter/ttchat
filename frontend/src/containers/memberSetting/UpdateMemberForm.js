@@ -26,7 +26,11 @@ const UpdateMemberForm = (props) => {
         ...member,
       })
       const list = [];
+<<<<<<< HEAD
       [1, 2, 3, 4, 5,6,7].forEach((v) => {
+=======
+      [1, 2, 3, 4, 5].forEach((v) => {
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         if (member[`platform_${v}`] !== 'none') {
           list.push(member[`platform_${v}`])
         }
@@ -49,7 +53,11 @@ const UpdateMemberForm = (props) => {
     const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
 
     const list = [];
+<<<<<<< HEAD
     [1, 2, 3, 4, 5,6,7].forEach((v) => {
+=======
+    [1, 2, 3, 4, 5].forEach((v) => {
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
       if (formData[`platform_${v}`] !== 'none') {
         list.push(formData[`platform_${v}`])
       }
@@ -76,9 +84,13 @@ const UpdateMemberForm = (props) => {
     { value: 'messenger', label: 'Messenger' },
     { value: 'line', label: 'Line OA' },
     { value: 'pantip', label: 'Pantip' },
+<<<<<<< HEAD
     { value: 'inbox', label: 'Pantip Inbox' },
     { value: 'twitter', label: 'Twitter' },
     { value: 'dm', label: 'Twitter Dm' },
+=======
+    { value: 'twitter', label: 'Twitter' },
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
     { value: 'none', label: 'None' },
   ].filter(i => !filterSource.includes(i.value))
 
@@ -270,6 +282,7 @@ const UpdateMemberForm = (props) => {
           <Input type="number" />
         </Form.Item>
       </div>
+<<<<<<< HEAD
       <div className="grid grid-cols-[303fr_185fr] gap-4">
         <Form.Item
           label="Platform 6"
@@ -310,6 +323,8 @@ const UpdateMemberForm = (props) => {
           <Input type="number" />
         </Form.Item>
       </div>
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
       <Form.Item wrapperCol={{ span: 24 }} className="!mb-0">
         <div className='flex justify-center gap-4'>
           <Button

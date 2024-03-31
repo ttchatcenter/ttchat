@@ -15,9 +15,13 @@ const PLATFORM = {
   messenger: 'Messenger',
   line: 'Line OA',
   pantip: 'Pantip',
+<<<<<<< HEAD
   inbox: 'Pantip Inbox',
   twitter: 'Twitter',
   dm: 'Twitter Dm',
+=======
+  twitter: 'Twitter',
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
   none: 'None',
 }
 

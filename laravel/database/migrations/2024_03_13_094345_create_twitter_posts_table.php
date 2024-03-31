@@ -23,7 +23,11 @@ return new class extends Migration
             $table->string('conversation_id');
             $table->string('in_reply_to_user_id');
             $table->int('chat_id');
+<<<<<<< HEAD
             $table->int('brand_id');
+=======
+            
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
         });
     }
 

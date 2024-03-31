@@ -63,6 +63,7 @@ class LineController extends Controller
                             ->where('concurrent_4', '>', 0);
                     })->orWhere(function ($query2) use ($type) {
                         $query2->where('platform_5', $type)
+<<<<<<< HEAD
                             ->where('concurrent_5', '>', 0);
                     })->orWhere(function ($query2) use ($type) {
                         $query2->where('platform_6', $type)
@@ -70,6 +71,9 @@ class LineController extends Controller
                     })->orWhere(function ($query2) use ($type) {
                         $query2->where('platform_7', $type)
                             ->where('concurrent_7', '>', 0);                
+=======
+                            ->where('concurrent_5', '>', 0);        
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                     });
                 });
                 $list = $member->get()->toArray(JSON_PRETTY_PRINT);
@@ -79,9 +83,13 @@ class LineController extends Controller
                         ($member['platform_2'] === $type && ($member['current_ticket_2'] < $member['concurrent_2'])) ||
                         ($member['platform_3'] === $type && ($member['current_ticket_3'] < $member['concurrent_3'])) ||
                         ($member['platform_4'] === $type && ($member['current_ticket_4'] < $member['concurrent_4'])) ||
+<<<<<<< HEAD
                         ($member['platform_5'] === $type && ($member['current_ticket_5'] < $member['concurrent_5'])) ||
                         ($member['platform_6'] === $type && ($member['current_ticket_6'] < $member['concurrent_6'])) ||
                         ($member['platform_7'] === $type && ($member['current_ticket_7'] < $member['concurrent_7']))
+=======
+                        ($member['platform_5'] === $type && ($member['current_ticket_5'] < $member['concurrent_5']))
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                     ) {
                         $is_free = true;
                     }
@@ -97,16 +105,22 @@ class LineController extends Controller
                         else if ($a['platform_3'] === $type) { $a_priority = 3; }
                         else if ($a['platform_4'] === $type) { $a_priority = 4; }
                         else if ($a['platform_5'] === $type) { $a_priority = 5; }
+<<<<<<< HEAD
                         else if ($a['platform_6'] === $type) { $a_priority = 6; }
                         else if ($a['platform_7'] === $type) { $a_priority = 7; }
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
     
                         if ($b['platform_1'] === $type) { $b_priority = 1; }
                         else if ($b['platform_2'] === $type) { $b_priority = 2; }
                         else if ($b['platform_3'] === $type) { $b_priority = 3; }
                         else if ($b['platform_4'] === $type) { $b_priority = 4; }
                         else if ($b['platform_5'] === $type) { $b_priority = 5; }
+<<<<<<< HEAD
                         else if ($b['platform_6'] === $type) { $b_priority = 6; }
                         else if ($b['platform_7'] === $type) { $b_priority = 7; }
+=======
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
     
                         if ($a_priority === $b_priority) {
                             if (!$a['latest_assigned']) {
@@ -132,11 +146,15 @@ class LineController extends Controller
                     } else if ($member->platform_4 === $type) {
                         $member->current_ticket_4 += 1;
                     } else if ($member->platform_5 === $type) {
+<<<<<<< HEAD
                         $member->current_ticket_5 += 1; 
                     } else if ($member->platform_6 === $type) {
                         $member->current_ticket_6 += 1;
                     } else if ($member->platform_7 === $type) {
                         $member->current_ticket_7 += 1;        
+=======
+                        $member->current_ticket_5 += 1;    
+>>>>>>> a16dc34e5dd1886417551a7181d2f7f6869871fb
                     }
                     $member->latest_assigned = Carbon::now();
             
