@@ -13,17 +13,24 @@ const PLATFORM = {
   facebook: '/images/fb-icon.png',
   messenger: '/images/messenger-icon.png',
   line: '/images/line-icon.png',
-  pantip: '/images/pantip-icon.png',
+  pantip:'pantip-icon.png',
+  inbox:'pantip-inbox-icon.png',
+  twitter: '/images/x-icon.png',
+  dm: '/images/dm-icon.png',
 }
 
 const PROFILE = {
   facebook: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg',
   messenger: 'https://images.summitmedia-digital.com/cosmo/images/2020/08/26/julia-barretto-profile-picture-idea-1598430021.jpg',
   line: 'https://i.pinimg.com/474x/98/51/1e/98511ee98a1930b8938e42caf0904d2d.jpg',
-  pantip: '/images/pantip-icon.png',
+  pantip:'pantip-icon.png',
+  inbox:'pantip-inbox-icon.png',
+  twitter: '/images/x-icon.png',
+  dm: '/images/dm-icon.png',
 }
 
 const renderTime = (time) => {
+  
    const currentTime = dayjs()
    const chatTime = dayjs(time)
   if (currentTime.isSame(chatTime, 'day')) {
@@ -39,6 +46,7 @@ const renderTime = (time) => {
 
 const ChatListItem = (props) => {
   const { type, data, handleClick } = props
+  //alert(type)
   return (
     <div
       className="p-4 flex flex-col gap-2 border-b border-main-grey3 hover:bg-accent-orange-bg1 cursor-pointer"
@@ -53,7 +61,7 @@ const ChatListItem = (props) => {
             }
           />
           {
-            ['messenger', 'line'].includes(type) ? (
+            ['messenger', 'line','inbox', 'dm', 'facebook','pantip','twitter'].includes(type) ? (
               <img
                 src={PLATFORM[type]}
                 className="absolute bottom-0 right-0 w-5 h-5"
@@ -62,7 +70,7 @@ const ChatListItem = (props) => {
           }
         </div>
         {
-          ['messenger', 'line'].includes(type) ? (
+          ['messenger', 'line','inbox', 'dm'].includes(type) ? (
             <div className="flex flex-col gap-2 flex-1">
               <div className="flex items-center w-full gap-2">
                 <div className="typo-th-b2 line-clamp-1 break-all">{data?.customer_name}</div>
@@ -110,6 +118,25 @@ const ChatListItem = (props) => {
                   <Tag text="new" customClasses="typo-c3 px-2" />
                 </div>
                 <span className="typo-th-c3 text-main-grey4">โพสต์เมื่อ {dayjs(data?.latest_message_time).fromNow()}</span>
+              </div>
+            </div>
+          ) : undefined
+        }
+        {
+          type === 'twitter' ? (
+            <div className="flex flex-col gap-2 flex-1">
+              <div className="flex flex-col w-full gap-[4px]">
+                <div className="flex items-center gap-2">
+                  <span className="typo-th-b2 line-clamp-1 break-all">{data?.customer_name}</span>
+                  <Tag text={data?.status} customClasses="typo-c3 px-2" />
+                </div>
+                {/* condition render time */}
+                <span className="typo-th-c3 text-main-grey4">โพสต์เมื่อ {dayjs(data?.latest_message_time).fromNow()}</span>
+              </div>
+              <div className="flex items-center justify-between w-full gap-8">
+                <p className="flex-1 line-clamp-1 typo-th-c3 text-accent-grey">
+                  {data?.latest_message}
+                </p>
               </div>
             </div>
           ) : undefined

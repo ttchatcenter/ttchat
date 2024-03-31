@@ -102,6 +102,9 @@ class AuthController extends Controller
         }
         if ($user->token_uid) {
             return response()->json(['error' => 'This account is already logged in on another device. You must log out of other browsers before being able to log in'], 400);
+       
+       
+       
         }
 
         $decoded_token = JWT::decode($token, new Key(env('JWT_SECRET'), 'HS256'));

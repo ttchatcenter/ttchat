@@ -21,7 +21,6 @@ export default function useGetFacebookComment(data) {
       }
     )
   }
-
   const fetchPost = (id, callback) => {
     window.FB.api(`${id}?fields=full_picture,message,created_time`, { access_token: platform.platform_secret },
       async (response) => {

@@ -26,7 +26,7 @@ const UpdateMemberForm = (props) => {
         ...member,
       })
       const list = [];
-      [1, 2, 3, 4].forEach((v) => {
+      [1, 2, 3, 4, 5,6,7].forEach((v) => {
         if (member[`platform_${v}`] !== 'none') {
           list.push(member[`platform_${v}`])
         }
@@ -49,7 +49,7 @@ const UpdateMemberForm = (props) => {
     const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
 
     const list = [];
-    [1, 2, 3, 4].forEach((v) => {
+    [1, 2, 3, 4, 5,6,7].forEach((v) => {
       if (formData[`platform_${v}`] !== 'none') {
         list.push(formData[`platform_${v}`])
       }
@@ -76,6 +76,9 @@ const UpdateMemberForm = (props) => {
     { value: 'messenger', label: 'Messenger' },
     { value: 'line', label: 'Line OA' },
     { value: 'pantip', label: 'Pantip' },
+    { value: 'inbox', label: 'Pantip Inbox' },
+    { value: 'twitter', label: 'Twitter' },
+    { value: 'dm', label: 'Twitter Dm' },
     { value: 'none', label: 'None' },
   ].filter(i => !filterSource.includes(i.value))
 
@@ -241,6 +244,66 @@ const UpdateMemberForm = (props) => {
         <Form.Item
           label="Concurrent"
           name="concurrent_4"
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </div>
+      <div className="grid grid-cols-[303fr_185fr] gap-4">
+        <Form.Item
+          label="Platform 5"
+          name="platform_5"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Select
+            options={options}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Concurrent"
+          name="concurrent_5"
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </div>
+      <div className="grid grid-cols-[303fr_185fr] gap-4">
+        <Form.Item
+          label="Platform 6"
+          name="platform_6"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Select
+            options={options}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Concurrent"
+          name="concurrent_6"
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </div>
+      <div className="grid grid-cols-[303fr_185fr] gap-4">
+        <Form.Item
+          label="Platform 7"
+          name="platform_7"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Select
+            options={options}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Concurrent"
+          name="concurrent_7"
           labelCol={{ span: 12 }}
           wrapperCol={{ span: 12 }}
         >

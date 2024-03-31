@@ -12,7 +12,7 @@ const CreateMemberForm = (props) => {
   const [disabledSave, setDisabledSave] = useState(true);
   const [selectedUser, setSelectedUser] = useState({});
   const [loading, setLoading] = useState(false);
-  const [filterSource, setFilterSource] = useState(['facebook', 'line', 'messenger', 'pantip'])
+  const [filterSource, setFilterSource] = useState(['facebook', 'line', 'messenger', 'pantip', 'inbox', 'twitter', 'dm'])
 
   const { brand } = useBrand()
   const { users } = useListUser({})
@@ -25,7 +25,7 @@ const CreateMemberForm = (props) => {
     const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
 
     const list = [];
-    [1, 2, 3, 4].forEach((v) => {
+    [1, 2, 3, 4, 5, 6, 7].forEach((v) => {
       if (formData[`platform_${v}`] !== 'none') {
         list.push(formData[`platform_${v}`])
       }
@@ -54,6 +54,9 @@ const CreateMemberForm = (props) => {
     { value: 'messenger', label: 'Messenger' },
     { value: 'line', label: 'Line OA' },
     { value: 'pantip', label: 'Pantip' },
+    { value: 'inbox', label: 'Pantip Inbox' },
+    { value: 'twitter', label: 'Twitter' },
+    { value: 'dm', label: 'Twitter Dm' },
     { value: 'none', label: 'None' },
   ].filter(i => !filterSource.includes(i.value))
 
@@ -76,10 +79,16 @@ const CreateMemberForm = (props) => {
         platform_2: 'messenger',
         platform_3: 'line',
         platform_4: 'pantip',
+        platform_5: 'inbox',
+        platform_6: 'twitter',
+        platform_7: 'dm',
         concurrent_1: 0,
         concurrent_2: 0,
         concurrent_3: 0,
         concurrent_4: 0,
+        concurrent_5: 0,
+        concurrent_6: 0,
+        concurrent_7: 0,
       }}
     >
       <div className="pb-4">General Info</div>
@@ -168,6 +177,9 @@ const CreateMemberForm = (props) => {
               { value: 'messenger', label: 'Messenger' },
               { value: 'line', label: 'Line OA' },
               { value: 'pantip', label: 'Pantip' },
+              { value: 'inbox', label: 'Pantip Inbox' },
+              { value: 'twitter', label: 'Twitter' },
+              { value: 'dm', label: 'Twitter Dm' },
               { value: 'none', label: 'None' },
             ].filter(i => !filterSource.includes(i.value))}
           />
@@ -235,6 +247,66 @@ const CreateMemberForm = (props) => {
         <Form.Item
           label="Concurrent"
           name="concurrent_4"
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </div>
+      <div className="grid grid-cols-[303fr_185fr] gap-4">
+        <Form.Item
+          label="Platform 5"
+          name="platform_5"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Select
+            options={options}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Concurrent"
+          name="concurrent_5"
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </div>
+      <div className="grid grid-cols-[303fr_185fr] gap-4">
+        <Form.Item
+          label="Platform 6"
+          name="platform_6"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Select
+            options={options}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Concurrent"
+          name="concurrent_6"
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 12 }}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </div>
+      <div className="grid grid-cols-[303fr_185fr] gap-4">
+        <Form.Item
+          label="Platform 7"
+          name="platform_7"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Select
+            options={options}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Concurrent"
+          name="concurrent_7"
           labelCol={{ span: 12 }}
           wrapperCol={{ span: 12 }}
         >

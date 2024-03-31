@@ -64,6 +64,8 @@ const AssignModal = (props) => {
           return record?.current_ticket_3
         } else if (record?.platform_4 === data?.source) {
           return record?.current_ticket_4
+        } else if (record?.platform_5 === data?.source) {
+          return record?.current_ticket_5
         }
       }
     },
@@ -93,6 +95,8 @@ const AssignModal = (props) => {
           return record?.concurrent_3 - record?.current_ticket_3
         } else if (record?.platform_4 === data?.source) {
           return record?.concurrent_4 - record?.current_ticket_4
+        } else if (record?.platform_5 === data?.source) {
+          return record?.concurrent_5 - record?.current_ticket_5  
         }
       }
     },

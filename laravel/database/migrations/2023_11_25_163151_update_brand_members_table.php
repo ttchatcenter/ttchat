@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('current_ticket_2')->default(0);
             $table->integer('current_ticket_3')->default(0);
             $table->integer('current_ticket_4')->default(0);
+            $table->integer('current_ticket_5')->default(0);
+            $table->integer('current_ticket_6')->default(0);
+            $table->integer('current_ticket_7')->default(0);
             $table->dateTime('latest_assigned')->nullable()->default(NULL);
         });
     }
@@ -34,6 +37,9 @@ return new class extends Migration
             $table->dropColumn('current_ticket_2');
             $table->dropColumn('current_ticket_3');
             $table->dropColumn('current_ticket_4');
+            $table->dropColumn('current_ticket_5');
+            $table->dropColumn('current_ticket_6');
+            $table->dropColumn('current_ticket_7');
             $table->dropColumn('latest_assigned');
         });
     }

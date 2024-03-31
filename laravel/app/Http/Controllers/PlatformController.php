@@ -61,7 +61,7 @@ class PlatformController extends Controller
             'platform_id' => 'required',
             'platform_secret' => 'required',
             'status' => 'required|in:active,inactive',
-            'type' => 'required|in:facebook,messenger,line,pantip',
+            'type' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm',
         ]);
 
         $platform = Platform::create([

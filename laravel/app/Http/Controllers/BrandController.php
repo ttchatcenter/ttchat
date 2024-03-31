@@ -88,10 +88,16 @@ class BrandController extends Controller
                 'platform_2' => 'none',
                 'platform_3' => 'none',
                 'platform_4' => 'none',
+                'platform_5' => 'none',
+                'platform_6' => 'none',
+                'platform_7' => 'none',
                 'concurrent_1' => 0,
                 'concurrent_2' => 0,
                 'concurrent_3' => 0,
                 'concurrent_4' => 0,
+                'concurrent_5' => 0,
+                'concurrent_6' => 0,
+                'concurrent_7' => 0,
             ]);
         }
 
@@ -114,7 +120,7 @@ class BrandController extends Controller
     public function getAssignee(Request $request, $id)
     {
         $validated = $request->validate([
-            'source' => 'required|in:facebook,messenger,line,pantip',
+            'source' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm',
         ]);
         $platform = $request->source;
         $brand = Brand::findOrFail($id);
@@ -132,7 +138,17 @@ class BrandController extends Controller
             })->orWhere(function ($query2) use ($platform) {
                 $query2->where('platform_4', $platform)
                     ->where('concurrent_4', '>', 0);
+            })->orWhere(function ($query2) use ($platform) {
+                $query2->where('platform_5', $platform)
+                    ->where('concurrent_5', '>', 0);
+            })->orWhere(function ($query2) use ($platform) {
+                $query2->where('platform_6', $platform)
+                    ->where('concurrent_6', '>', 0);
+            })->orWhere(function ($query2) use ($platform) {
+                $query2->where('platform_7', $platform)
+                    ->where('concurrent_7', '>', 0);        
             });
+
         });
         $list = $member->get();
         return response()->json([

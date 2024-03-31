@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('customer_name')->nullable()->default(NULL);
             $table->string('customer_id')->nullable()->default(NULL);
             $table->string('customer_profile')->nullable()->default(NULL);
-            $table->enum('source', ['facebook', 'messenger', 'line', 'pantip']);
+            $table->enum('source', ['facebook', 'messenger', 'line', 'pantip', 'inbox','twitter', 'dm', 'none']);
             $table->string('status')->default('new');
             $table->string('note')->nullable()->default(NULL);
             $table->integer('assignee')->nullable()->default(NULL);

@@ -28,6 +28,9 @@ const initialTotal = {
   percent_sla_facebook: 0,
   percent_sla_line: 0,
   percent_sla_pantip: 0,
+  percent_sla_pantip_inbox: 0,
+  percent_sla_twitter: 0,
+  percent_sla_dm: 0,
 }
 
 let currH = 0
@@ -72,6 +75,9 @@ const OverallPerformance = () => {
       percent_sla_facebook: 0,
       percent_sla_line: 0,
       percent_sla_pantip: 0,
+      percent_sla_pantip_inbox: 0,
+      percent_sla_twitter: 0,
+      percent_sla_dm: 0,
     }
     items.forEach((item) => {
       total.total_incoming_chat += Number(item.total_incoming_chat)
@@ -88,6 +94,9 @@ const OverallPerformance = () => {
       total.percent_sla_facebook += Number(item.percent_sla_facebook)
       total.percent_sla_line += Number(item.percent_sla_line)
       total.percent_sla_pantip += Number(item.percent_sla_pantip)
+      total.percent_sla_pantip_inbox += Number(item.percent_sla_pantip_inbox)
+      total.percent_sla_twitter += Number(item.percent_sla_twitter)
+      total.percent_sla_dm += Number(item.percent_sla_dm)
 
       if (Number(item.percent_sla) > 0) {
         count.percent_sla++
@@ -104,6 +113,16 @@ const OverallPerformance = () => {
       if (Number(item.percent_sla_pantip) > 0) {
         count.percent_sla_pantip++
       }
+      if (Number(item.percent_sla_pantip_inbox) > 0) {
+        count.percent_sla_pantip_inbox++
+      }
+      if (Number(item.percent_sla_twitter) > 0) {
+        count.percent_sla_twitter++
+      }
+      if (Number(item.percent_sla_dm) > 0) {
+        count.percent_sla_dm++
+      }
+
     })
 
     return {
@@ -111,7 +130,8 @@ const OverallPerformance = () => {
       percent_sla: total.percent_sla / (count.percent_sla || 1),
       percent_sla_messenger:
         total.percent_sla_messenger / (count.percent_sla_messenger || 1),
-      percent_sla_line: total.percent_sla_line / (count.percent_sla_line || 1),
+      percent_sla_line: 
+      total.percent_sla_line / (count.percent_sla_line || 1),
       percent_sla_pantip:
         total.percent_sla_pantip / (count.percent_sla_pantip || 1),
     }

@@ -15,18 +15,22 @@ use App\Models\Category;
 use App\Models\SubcategoryLevel1;
 use App\Models\SubcategoryLevel2;
 use App\Models\LineChats;
+use App\Models\ChatConstant;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Log;
 use App\Traits\FacebookTrait;
+use App\Traits\TwitterTrait;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+
 
 class ChatsController extends Controller
 {
     use FacebookTrait;
+    //use TwitterTrait;
 
     public function gen_uuid()
     {
@@ -256,6 +260,12 @@ class ChatsController extends Controller
                 $prevMember->current_ticket_3 -= 1;
             } else if ($prevMember->platform_4 === $chat->source && $prevMember->current_ticket_4 > 0) {
                 $prevMember->current_ticket_4 -= 1;
+            } else if ($prevMember->platform_5 === $chat->source && $prevMember->current_ticket_5 > 0) {
+                $prevMember->current_ticket_5 -= 1;   
+            } else if ($prevMember->platform_6 === $chat->source && $prevMember->current_ticket_6 > 0) {
+                $prevMember->current_ticket_6 -= 1;
+            } else if ($prevMember->platform_7 === $chat->source && $prevMember->current_ticket_7 > 0) {
+                $prevMember->current_ticket_7 -= 1;         
             }
             $prevMember->save();
         }
@@ -268,6 +278,12 @@ class ChatsController extends Controller
             $member->current_ticket_3 += 1;
         } else if ($member->platform_4 === $chat->source) {
             $member->current_ticket_4 += 1;
+        } else if ($member->platform_5 === $chat->source) {
+            $member->current_ticket_5 += 1;
+        } else if ($member->platform_6 === $chat->source) {
+            $member->current_ticket_6 += 1;
+        } else if ($member->platform_7 === $chat->source) {
+            $member->current_ticket_7 += 1;        
         }
         $member->latest_assigned = Carbon::now();
 
@@ -309,6 +325,12 @@ class ChatsController extends Controller
                     $prevMember->current_ticket_3 -= 1;
                 } else if ($prevMember->platform_4 === $chat->source && $prevMember->current_ticket_4 > 0) {
                     $prevMember->current_ticket_4 -= 1;
+                } else if ($prevMember->platform_5 === $chat->source && $prevMember->current_ticket_5 > 0) {
+                    $prevMember->current_ticket_5 -= 1;
+                } else if ($prevMember->platform_6 === $chat->source && $prevMember->current_ticket_6 > 0) {
+                    $prevMember->current_ticket_6 -= 1;
+                } else if ($prevMember->platform_7 === $chat->source && $prevMember->current_ticket_7 > 0) {
+                    $prevMember->current_ticket_7 -= 1;    
                 }
                 $prevMember->latest_assigned = Carbon::now();
                 $prevMember->save();
@@ -494,6 +516,97 @@ class ChatsController extends Controller
                         "post_date" => Carbon::parse($msg->created_at)->format('d/m/Y H:i:s')
                     ]);
                 }
+            } else if ($chat->source === 'twitter') {
+                $datapost = TwitterPosts::where('chat_id', $chat->twPost->chat_id)->first();
+                $dataconstant = ChatConstant::where('brand_id', $datapost->brand_id)->first();
+                $client = new Client();
+                $url = 'https://api.twitter.com/2/tweets/search/recent';
+                $redatacomment = [];
+                $existingIds = [];
+                try {
+                   $response = $client->request('GET', $url, [
+                        'headers' => [
+                            //'Authorization' => 'Bearer ' .env('TWITTER_BEARER_TOKEN')// $twitterBearerToken//env('TWITTER_BEARER_TOKEN'),
+                            'Authorization' => 'Bearer ' .$dataconstant->twitter_bearer_token
+                        ],
+                        'query' => [
+                            'query' => 'conversation_id:'.$datapost->conversation_id,
+                            'tweet.fields' => 'id,text,author_id,created_at,reply_settings,source,withheld,context_annotations,conversation_id,attachments,edit_controls,geo,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets',
+                            'media.fields' => 'duration_ms,height,media_key,preview_image_url,type,url,width,public_metrics,non_public_metrics,organic_metrics,promoted_metrics,alt_text,variants',
+                            'user.fields' => 'created_at,description,entities,id,location,most_recent_tweet_id,name,pinned_tweet_id,profile_image_url,protected,url,username,verified,verified_type,withheld',
+                            'expansions' => 'author_id,entities.mentions.username,in_reply_to_user_id,referenced_tweets.id.author_id,geo.place_id,edit_history_tweet_ids,attachments.media_keys', 
+                        ],
+                    ]);
+                    $responseData = json_decode($response->getBody()->getContents(), true);
+                    $users = $responseData['includes']['users'];
+                    foreach ($responseData['data'] as $post) {
+                        $userprofile = $this->getUserProfile($post['author_id'], $users);
+                        $post['userprofile_replay'] = $userprofile;
+                        if (isset($post['referenced_tweets'][0]['type']) && $post['referenced_tweets'][0]['type'] === 'replied_to') {
+                            $parentPostId = $post['referenced_tweets'][0]['id'];
+                            foreach ($responseData['includes']['tweets'] as $reply) {
+                                if ($reply['id'] === $parentPostId) {
+                                    $replyUserProfile = $this->getUserProfile($reply['author_id'], $users);
+                                    $post['at_post'] = [
+                                        'id' => $reply['id'],
+                                        'text' => $reply['text'],
+                                        'userprofile_post' => $replyUserProfile,
+                                        'created_at' => $reply['created_at'],
+                                        'media' => $replymedias,
+                                    ];
+                                    break;
+                                }
+                            }
+                        } else {
+                            $post['at_post'] = null;
+                        }
+                        //if ($post['id'] === $datapost->tweet_id || $post['at_post']['id'] === $datapost->tweet_id ){
+                            $formattedData[] = $post;
+                        //}
+                    }
+                    foreach ($formattedData as $tweetData) {
+                        // เช็คว่า id มีอยู่ใน array ที่มีอยู่แล้วหรือไม่
+                        if (!in_array($tweetData['id'], $existingIds)) {
+                            $post_author_type='';
+                            if  ($tweetData['userprofile_replay']['id'] === $dataconstant->tw_userid ){
+                                $post_author_type='Customer';
+                            }else{
+                                $post_author_type='Agent';
+                            }
+                            $redatacomment[] = [
+                                'post_author_type' => $post_author_type,
+                                'post_author_name' => $tweetData['userprofile_replay']['name'],
+                                'post_body' => $tweetData['text'],
+                                'post_date' => $tweetData['created_at']
+                            ];
+                            // เพิ่ม id เข้าไปใน array เพื่อใช้ในการตรวจสอบซ้ำ
+                            $existingIds[] = $tweetData['id'];
+                        }
+                        // เพิ่มข้อมูลจาก at_post
+                        if (!in_array($tweetData['at_post']['id'], $existingIds)) {
+                            $post_author_type='';
+                            if  ($tweetData['at_post']['userprofile_post']['id'] === $dataconstant->tw_userid ){
+                                $post_author_type='Customer';
+                            }else{
+                                $post_author_type='Agent';
+                            }
+                            $redatacomment[] = [
+                                'post_author_type' => $post_author_type,
+                                'post_author_name' => $tweetData['at_post']['userprofile_post']['name'],
+                                'post_body' => $tweetData['at_post']['text'],
+                                'post_date' => $tweetData['at_post']['created_at']
+                            ];
+                            $existingIds[] = $tweetData['at_post']['id'];
+                        }
+                    }
+                    usort($redatacomment, function($a, $b) {
+                        return strtotime($a['post_date']) - strtotime($b['post_date']);
+                    });
+                    $commentList = $redatacomment;
+                } catch (\Exception $e) {
+                    Log::error('Error searching tweets: ' . $e->getMessage());
+                    $commentList =  null;
+                }
             }
 
             $data['conversation'] = $commentList; // array string
@@ -525,7 +638,6 @@ class ChatsController extends Controller
             'success' => 'ok',
         ]);
     }
-
     public function reject(Request $request, $id)
     {
         $auth = auth()->user();
@@ -547,6 +659,12 @@ class ChatsController extends Controller
                     $prevMember->current_ticket_3 -= 1;
                 } else if ($prevMember->platform_4 === $chat->source && $prevMember->current_ticket_4 > 0) {
                     $prevMember->current_ticket_4 -= 1;
+                } else if ($prevMember->platform_5 === $chat->source && $prevMember->current_ticket_5 > 0) {
+                    $prevMember->current_ticket_5 -= 1;
+                } else if ($prevMember->platform_6 === $chat->source && $prevMember->current_ticket_6 > 0) {
+                    $prevMember->current_ticket_6 -= 1;
+                } else if ($prevMember->platform_7 === $chat->source && $prevMember->current_ticket_7 > 0) {
+                    $prevMember->current_ticket_7 -= 1;    
                 }
                 $prevMember->latest_assigned = Carbon::now();
                 $prevMember->save();
@@ -653,6 +771,15 @@ class ChatsController extends Controller
                 })->orWhere(function ($query2) use ($type) {
                     $query2->where('platform_4', $type)
                         ->where('concurrent_4', '>', 0);
+                })->orWhere(function ($query2) use ($type) {
+                    $query2->where('platform_5', $type)
+                        ->where('concurrent_5', '>', 0);
+                })->orWhere(function ($query2) use ($type) {
+                    $query2->where('platform_6', $type)
+                        ->where('concurrent_6', '>', 0);
+                })->orWhere(function ($query2) use ($type) {
+                    $query2->where('platform_7', $type)
+                        ->where('concurrent_7', '>', 0);        
                 });
             });
             $list = $member->get()->toArray(JSON_PRETTY_PRINT);
@@ -661,7 +788,10 @@ class ChatsController extends Controller
                 if (($member['platform_1'] === $type && ($member['current_ticket_1'] < $member['concurrent_1'])) ||
                     ($member['platform_2'] === $type && ($member['current_ticket_2'] < $member['concurrent_2'])) ||
                     ($member['platform_3'] === $type && ($member['current_ticket_3'] < $member['concurrent_3'])) ||
-                    ($member['platform_4'] === $type && ($member['current_ticket_4'] < $member['concurrent_4']))
+                    ($member['platform_4'] === $type && ($member['current_ticket_4'] < $member['concurrent_4'])) ||
+                    ($member['platform_5'] === $type && ($member['current_ticket_5'] < $member['concurrent_5'])) ||
+                    ($member['platform_6'] === $type && ($member['current_ticket_6'] < $member['concurrent_6'])) ||
+                    ($member['platform_7'] === $type && ($member['current_ticket_7'] < $member['concurrent_7']))
                 ) {
                     $is_free = true;
                 }
@@ -676,11 +806,17 @@ class ChatsController extends Controller
                     else if ($a['platform_2'] === $type) { $a_priority = 2; }
                     else if ($a['platform_3'] === $type) { $a_priority = 3; }
                     else if ($a['platform_4'] === $type) { $a_priority = 4; }
+                    else if ($a['platform_5'] === $type) { $a_priority = 5; }
+                    else if ($a['platform_6'] === $type) { $a_priority = 6; }
+                    else if ($a['platform_7'] === $type) { $a_priority = 7; }
 
                     if ($b['platform_1'] === $type) { $b_priority = 1; }
                     else if ($b['platform_2'] === $type) { $b_priority = 2; }
                     else if ($b['platform_3'] === $type) { $b_priority = 3; }
                     else if ($b['platform_4'] === $type) { $b_priority = 4; }
+                    else if ($b['platform_5'] === $type) { $b_priority = 5; }
+                    else if ($b['platform_6'] === $type) { $b_priority = 6; }
+                    else if ($b['platform_7'] === $type) { $b_priority = 7; }
 
                     if ($a_priority === $b_priority) {
                         if (!$a['latest_assigned']) {
@@ -705,6 +841,12 @@ class ChatsController extends Controller
                     $member->current_ticket_3 += 1;
                 } else if ($member->platform_4 === $type) {
                     $member->current_ticket_4 += 1;
+                } else if ($member->platform_5 === $type) {
+                    $member->current_ticket_5 += 1;  
+                } else if ($member->platform_6 === $type) {
+                    $member->current_ticket_6 += 1;
+                } else if ($member->platform_7 === $type) {
+                    $member->current_ticket_7 += 1;        
                 }
                 $member->latest_assigned = Carbon::now();
         
@@ -721,4 +863,10 @@ class ChatsController extends Controller
         }
         return response()->json(['message' => 'Successfully']);
     }
+    
+   
+
+
+
+
 }

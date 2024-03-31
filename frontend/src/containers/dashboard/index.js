@@ -213,6 +213,27 @@ const Dashboard = () => {
         listTotalQueueWaiting?.find((item) => item.source === "pantip")
           ?.total || 0,
     },
+    {
+      icon: "/images/icon/pantip-inbox.png",
+      title: "Pantip Inbox",
+      value:
+        listTotalQueueWaiting?.find((item) => item.source === "inbox")
+          ?.total || 0,
+    },
+    {
+      icon: "/images/icon/x.png",
+      title: "Twitter",
+      value:
+        listTotalQueueWaiting?.find((item) => item.source === "twitter")
+          ?.total || 0,
+    },
+    {
+      icon: "/images/icon/dm.png",
+      title: "Twitter Dm",
+      value:
+        listTotalQueueWaiting?.find((item) => item.source === "dm")
+          ?.total || 0,
+    },
   ]
 
   const renderBoxPerformance = ({ icon, title, value }) => {

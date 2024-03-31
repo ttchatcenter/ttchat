@@ -118,6 +118,7 @@ const UpdatePlatformForm = (props) => {
             >
               <Input disabled={platform?.type !== 'line'} />
             </Form.Item>
+
             <div className="grid grid-cols-[3fr_1fr] items-baseline">
               <Form.Item
                 label="Webhook Link"
@@ -138,6 +139,7 @@ const UpdatePlatformForm = (props) => {
                 <span className="underline">{copied ? 'Copied!' : 'Copy'}</span>
               </div>
             </div>
+            
           </>
         ) : undefined
       }

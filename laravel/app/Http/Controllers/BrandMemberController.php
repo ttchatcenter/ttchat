@@ -69,14 +69,20 @@ class BrandMemberController extends Controller
             'user_id' => 'required|exists:users,id',
             'status' => 'required|in:active,inactive',
             'display_name' => 'required',
-            'platform_1' => 'required|in:facebook,messenger,line,pantip,none',
-            'platform_2' => 'required|in:facebook,messenger,line,pantip,none',
-            'platform_3' => 'required|in:facebook,messenger,line,pantip,none',
-            'platform_4' => 'required|in:facebook,messenger,line,pantip,none',
+            'platform_1' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_2' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_3' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_4' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_5' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_6' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_7' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
             'concurrent_1' => 'required|integer',
             'concurrent_2' => 'required|integer',
             'concurrent_3' => 'required|integer',
             'concurrent_4' => 'required|integer',
+            'concurrent_5' => 'required|integer',
+            'concurrent_6' => 'required|integer',
+            'concurrent_7' => 'required|integer',
         ]);
 
         $member = BrandMember::create($request->all());
@@ -108,14 +114,20 @@ class BrandMemberController extends Controller
         $validated = $request->validate([
             'status' => 'required|in:active,inactive',
             'display_name' => 'required',
-            'platform_1' => 'required|in:facebook,messenger,line,pantip,none',
-            'platform_2' => 'required|in:facebook,messenger,line,pantip,none',
-            'platform_3' => 'required|in:facebook,messenger,line,pantip,none',
-            'platform_4' => 'required|in:facebook,messenger,line,pantip,none',
+            'platform_1' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_2' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_3' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_4' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_5' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_6' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
+            'platform_7' => 'required|in:facebook,messenger,line,pantip,inbox,twitter,dm,none',
             'concurrent_1' => 'required|integer',
             'concurrent_2' => 'required|integer',
             'concurrent_3' => 'required|integer',
             'concurrent_4' => 'required|integer',
+            'concurrent_5' => 'required|integer',
+            'concurrent_6' => 'required|integer',
+            'concurrent_7' => 'required|integer',
         ]);
     
         $member = BrandMember::findOrFail($id);
@@ -125,10 +137,16 @@ class BrandMemberController extends Controller
         $member->platform_2 = $request->platform_2 ?? $member->platform_2;
         $member->platform_3 = $request->platform_3 ?? $member->platform_3;
         $member->platform_4 = $request->platform_4 ?? $member->platform_4;
+        $member->platform_5 = $request->platform_5 ?? $member->platform_5;
+        $member->platform_6 = $request->platform_6 ?? $member->platform_6;
+        $member->platform_7 = $request->platform_7 ?? $member->platform_7;
         $member->concurrent_1 = $request->concurrent_1 ?? $member->concurrent_1;
         $member->concurrent_2 = $request->concurrent_2 ?? $member->concurrent_2;
         $member->concurrent_3 = $request->concurrent_3 ?? $member->concurrent_3;
         $member->concurrent_4 = $request->concurrent_4 ?? $member->concurrent_4;
+        $member->concurrent_5 = $request->concurrent_5 ?? $member->concurrent_5;
+        $member->concurrent_6 = $request->concurrent_6 ?? $member->concurrent_6;
+        $member->concurrent_7 = $request->concurrent_7 ?? $member->concurrent_7;
         $member->save();
         
         return response()->json($member);

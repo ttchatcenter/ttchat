@@ -20,10 +20,12 @@ export default function useUpdateBrandMember(props = {}) {
       platform_2,
       platform_3,
       platform_4,
+      platform_5,
       concurrent_1,
       concurrent_2,
       concurrent_3,
       concurrent_4,
+      concurrent_5,
     } = data
     mutate({
       id,
@@ -34,10 +36,12 @@ export default function useUpdateBrandMember(props = {}) {
         platform_2,
         platform_3,
         platform_4,
+        platform_5,
         concurrent_1,
         concurrent_2,
         concurrent_3,
         concurrent_4,
+        concurrent_5,
       }
     })
   }

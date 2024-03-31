@@ -96,7 +96,7 @@ trait FacebookTrait
         $url = env('FACEBOOK_API_URL', 'https://graph.facebook.com/v14.0');
         $path = '/' . $id . '/comments';
 
-        $data['access_token'] = $token;
+        $data['access_token'] = $token; 
         $data['message'] = $message;
         $url1 = $url . $path . '?access_token=' . $token;
         $client = new Client();

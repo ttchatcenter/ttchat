@@ -21,13 +21,15 @@ const TableAgentPerformance = ({ data, brand, members }) => {
       item.concurrent_1 +
       item.concurrent_2 +
       item.concurrent_3 +
-      item.concurrent_4
+      item.concurrent_4 +
+      item.concurrent_5
 
     const totalCurrentTicket =
       item.current_ticket_1 +
       item.current_ticket_2 +
       item.current_ticket_3 +
-      item.current_ticket_4
+      item.current_ticket_4 +
+      item.current_ticket_5
 
     const diff = totalConcurrent - totalCurrentTicket
     concurrent[`${item?.firstname} ${item?.lastname}`] = diff < 0 ? 0 : diff

@@ -15,6 +15,9 @@ const PLATFORM = {
   messenger: 'Messenger',
   line: 'Line OA',
   pantip: 'Pantip',
+  inbox: 'Pantip Inbox',
+  twitter: 'Twitter',
+  dm: 'Twitter Dm',
   none: 'None',
 }
 
@@ -82,7 +85,7 @@ const MemberSettingPage = () => {
       dataIndex: 'id',
       render: (_, record) => {
         const list = [];
-        ['facebook', 'messenger', 'line', 'pantip'].forEach((v, i) => {
+        ['facebook', 'messenger', 'line', 'pantip', 'inbox','twitter' ,'dm'].forEach((v, i) => {
           if (record[`concurrent_${i + 1}`]) {
             list.push(record[`platform_${i + 1}`])
           }
@@ -100,6 +103,7 @@ const MemberSettingPage = () => {
           record?.concurrent_2,
           record?.concurrent_3,
           record?.concurrent_4,
+          record?.concurrent_5,
         ].reduce((acc, cur) => acc + cur, 0)
         return limit
       }

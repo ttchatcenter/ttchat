@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('platform_id');
             $table->string('platform_secret');
             $table->enum('status', ['active', 'inactive']);
-            $table->enum('type', ['facebook', 'messenger', 'line', 'pantip']);
+            $table->enum('type', ['facebook', 'messenger', 'line', 'pantip', 'inbox','twitter', 'dm', 'none']);
             $table->timestamps();
         });
     }
